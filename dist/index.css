@@ -1,0 +1,254 @@
+body, html{
+    background-color: white;
+    margin:0;
+    height:100vh;
+}
+.grid-container{
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 13% 80% 7%;
+    grid-template-areas: 
+    "userButtons userButtons"
+    "animationBox chatBox"
+    "userForm userForm";
+    height:100%;
+    padding:0;
+}
+/* animation box */
+.animation-box{
+    background-color: #0B2027;
+    grid-area: animationBox;
+    border: 2px inset black;
+}
+canvas{
+    width:100%;
+    height:100%;
+}
+
+/* user button container*/
+.user-container-css{
+    background: white;
+    grid-area: userButtons;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.user-card{
+    border-radius: 40px;
+    background-color:rgb(127, 149, 209);
+    display: flex;
+    /* recenter*/
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 80px;
+    min-height: 90px;
+    border: 1px dashed black;
+}
+.user-card-icon{
+    width: 40px;
+    height: 40px;
+    border-radius:30px;
+    border: 2px inset rgba(0,0,0,0.3);
+}
+.user-card p{
+   margin:0;
+   font-size: 1.1rem;
+   font-weight: 700;
+   color: white;
+  
+}
+
+/* chat box*/
+.chat-box{
+    border: 2px black solid;
+    background-color:#ECE4B7;
+    grid-area: chatBox;
+    display:flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#user-card-chatting-with{
+ flex-direction: row;
+ justify-content: center;
+ align-items: center;
+ min-width:40px;
+ min-height:85px;
+ border-radius: 0;
+ background-color: #7f95d1;
+ border-bottom: 1px solid black;
+ border-right: 1px solid black;
+ border-left: none;
+ border-top: none;
+ margin-bottom: 5px;
+}
+#user-card-chatting-with img{
+ width:60px;
+ height:60px;
+ margin-right:30px;
+ border-width: 3px;
+}
+#user-card-chatting-with p{
+    font-size: 2.8rem;
+}
+.chat-messages-css{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+.message-card{
+    /* border: 2px solid black; */
+    width: 70%;
+    margin-bottom: 5px;
+    border-radius:15px;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+}
+.message-card p{
+    width: 80%;
+    font-size: 1.1rem;
+}
+.message-card button{
+    text-align: center;
+    width: 30%;
+    align-self: center;
+    margin-bottom: 10px;
+}
+
+.message-card-sent-css{
+    align-self: flex-start;
+    background-color: #BC9EC1;
+    text-align:left;
+    position: relative; 
+    margin-left: 15px;
+}
+.message-card-sent-css::before {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    border: 22px solid #BC9EC1;;
+    border-top: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    left: -26px;
+    top: 10px;
+}
+
+.message-card-sent-css p{
+
+}
+.message-card-sent-css button{
+}
+
+.message-card-recieved-css::before {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    border: 22px solid #7f95d1;
+    border-top: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    right: -26px;
+    top: 10px;
+}
+.message-card-recieved-css{
+    align-self: flex-end;
+    background-color:#7f95d1;
+    text-align:right;
+    position:relative;
+    margin-right:15px;
+}
+.message-card-recieved-css p{
+
+}
+
+/* message input form  */
+.user-edit-buttons{
+    display:inline;
+    text-align:right;
+    font-size:24px;
+}
+.user-edit-buttons button{
+    font-size:1.3rem;
+    margin: 5px;
+}
+.message-input-css, .submit-message-css, .username-message-form{
+    font-size:1.3rem;
+    margin-right:5px;
+}
+.submit-message-css{
+    border: none;
+    font-size:1.3rem;
+    min-width:28px;
+    min-height:28px;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+.username-message-form{
+    margin-right:5px;
+}
+.message-form{ 
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+}
+.chat-form{
+    border: 2px black solid;
+    background-color:#BC9EC1;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:nowrap;
+    justify-content: space-between;
+    align-items: center;
+    grid-area: userForm;
+}
+.user-image-css{
+    display: inline;
+    width: 40px;
+    height: auto;
+    border-radius: 40px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+
+/* login forms */
+
+.user-login-form-div-css, .user-edit-form-div-css {
+    text-align: center;
+    width:100%;
+    font-size:1.3rem;
+    height: 100%;
+}
+.user-edit-form-div-css input[type=text], .user-login-form-div-css input[type=text]{
+    font-size: 1.3rem;
+    text-align:center;
+    margin-bottom: 10px;
+}
+
+.form-hidden{
+    opacity:0;
+    transition: all ease-in 2000ms;
+}
+.form-none{
+    display:none;
+}
+.display-modal{
+    /* position: absolute;
+    width: 42%;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-77%) translateY(-50%);  */
+    z-index: 12;
+    background-color: white;
+    min-height: 200px;
+    opacity:1;
+    transition:all ease 1000ms;
+    transform-origin: bottom center;
+}
+

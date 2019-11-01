@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Chitter-Chatter</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="paper-full.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <link rel="stylesheet" href="index.css">
+        <script type="text/paperscript" canvas="myCanvas">
+
+
+        var circles = [];
+        var colors = ["blue", "red", "white", "green", "skyblue", "orange"];
+        window.myLib = {
+            makeCircle: function(event) {
+                // generate random point
+	            var maxPoint = new Point(view.size.width, view.size.height);
+	            var randomPoint = Point.random();
+	            var point = maxPoint * randomPoint;
+	            var newCircle = new Path.Circle(point, 400);
+	        	newCircle.fillColor = colors[Math.floor(Math.random()*colors.length)];
+        	
+            // add a new circle to the circles array to draw
+            circles.push(newCircle);}
+        }
+        function onFrame(event) {
+        	// animate the hue and the scale of circles
+        	for (i = 0; i < circles.length; i++) {
+        		circles[i].fillColor.hue +=1;
+        		circles[i].scale(.9);
+                // delete the dimished circles from the array
+                if(circles[i].area < 1){
+                  circles[i].remove();
+                  circles.splice(i, 1);
+                }
+        	}
+        }
+
+        </script>
+    </head>
+    <body>
+        <div class="grid-container">
+            <div class="user-container-css" id="user-container-js">
+                <h1 class="title-heading animated infinite tada">Chitter-Chatter</h1>
+            </div>
+
+            <div class="animation-box">
+                <canvas id="myCanvas" resize></canvas>
+            </div>
+
+            <div class="chat-box chat-box-js" style="overflow-y:scroll">
+                <div class="chatting-with" id="chatting-with-js"></div>
+                <div class="chat-messages-css" id= "chat-messages-js">
+                </div>
+                <div class="user-login-form-div-css form-hidden">
+                    <h2 class="form-header">Login</h2>
+                    <form class="login-form-js">
+                        <div>
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" id="login-username-input">
+                        </div>
+                        <input type="submit" value="Login">
+                        <br>
+                    </form>
+                    <h3>OR</h3>
+                    <h2>Register</h2>
+                    <form class="register-form">
+                        <label for="new-username">Username:</label>
+                        <input type="text" name="new-username" id="register-username-input">
+                        <div class="icon-form-register">
+                        <label for="icon_url">Icon URL:</label>
+                        <!-- <input type="url" name="icon_url" id="register-icon-input"> -->
+                        
+                        </div>
+                        <input type="submit" value="Register" id="register-submit-button">
+                    </form>
+                </div>
+                <div class="user-edit-form-div-css form-hidden form-none">
+                    <h2 class="form-header">Edit User:</h2>
+                    <form id="edit-form-js">
+                        <div class="username-input-edit">
+                            <label for="username">Username:</label>
+                            <input id="edit-form-username" type="text" name="username">
+                        </div>
+                        <div class="icon-url-input">
+                            <label for="icon_url">Icon URL:</label>
+                            <input id="edit-form-icon" type="url" name="icon_url">
+                        </div>
+                        <input type="submit" value="Edit">
+                    </form>
+                </div>
+            </div>
+            <div class="chat-form">
+                <div class="form-left">
+                    <form class="message-form" id="message-form-js" action="">
+                        <img class="user-image-css" id="current-user-image"
+                            src="https://www.writeups.org/wp-content/uploads/Harry-Potter-Philosopher-Stone-era.jpg" alt="">
+                        <span class="username-message-form">USER:</span>
+                        <input class="message-input-css" id="message-input-js" type="text" name="message" size="54">
+                        <input class="submit-message-css" type="submit" value="Send Message">
+                    </form>
+                </div>
+                <div class="user-edit-buttons">
+                    <button id="stop-all">Silence</button></button><button class="edit-user-button">Edit</button><button class="delete-user-button">Delete</button><button class="logout-button">Logout</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="index.js" defer></script>
+    </body>
+</html>
