@@ -34,6 +34,7 @@ const usernameDisplay = document.querySelector(".username-message-form");
 const currentUserImage = document.querySelector("#current-user-image");
 const messageForm = document.querySelector("#message-form-js");
 const messageInput = document.querySelector("#message-input-js")
+
 // other vars
 let currentInterval
 let animFunc
@@ -131,7 +132,6 @@ function addIconToChat(event){
 
 function getMessages(chattingUserId){
     const currentUserId = usernameDisplay.dataset.currentUserId
-    console.log(chattingUserId)
     fetch(usersUrl + `/${currentUserId}`)
     .then(res => res.json())
     .then(data => {
@@ -380,7 +380,8 @@ function sendEditToDb(currUser, newUsername, newIcon){
 
 function deleteUser(){
     const currUser = usernameDisplay.dataset.currentUserId
-    if(currUser){
+    console.log(currUser);
+    if(currUser && currUser !== "none"){
         fetch(usersUrl + `/${currUser}`, {
             method: "DELETE"   
         })
@@ -389,15 +390,18 @@ function deleteUser(){
             logoutUser();
         })
         .catch(err => alert(err));
+        if (currentInterval) { clearInterval(currentInterval)}
     }
 }
+
 function logoutUser(){
-    usernameDisplay.dataset.currentUserId = null;
+    usernameDisplay.dataset.currentUserId = "none";
     currentUserImage.src = defaultUrl
     usernameDisplay.innerText = "USER" + ":"
     userContainer.innerHTML = `<h1 class="title-heading animated infinite tada">Chitter-Chatter</h1>`;
     displayForm(loginFormDiv);
 }
+
 function resetForms(){
     loginForm.reset();
     editForm.reset();
@@ -409,17 +413,19 @@ function resetForms(){
 function countMessagesAndAlert() {
     let chattingUserId = parseInt(document.querySelector("#chatting-with-js").dataset.userId)
     const currentUserId = usernameDisplay.dataset.currentUserId
-    fetch(usersUrl + `/${currentUserId}`)
-        .then(res => res.json())
-        .then(data => {
-            const sorted = handleMessages(chattingUserId, data.sent_messages, data.recieved_messages)
-            let updatedCount = sorted.length
-            let pageCount = document.querySelector(".chat-messages-css").children.length
-            if (updatedCount > pageCount) {
-                let icon = document.querySelector("#user-container-js").querySelector(`[data-user-id='${chattingUserId}']`)
-                icon.classList.add("animated", "infinite", "bounce");
-            }
-        })
+    if(currentUserId){
+        fetch(usersUrl + `/${currentUserId}`)
+            .then(res => res.json())
+            .then(data => {
+                const sorted = handleMessages(chattingUserId, data.sent_messages, data.recieved_messages)
+                let updatedCount = sorted.length
+                let pageCount = document.querySelector(".chat-messages-css").children.length
+                if (updatedCount > pageCount) {
+                    let icon = document.querySelector("#user-container-js").querySelector(`[data-user-id='${chattingUserId}']`)
+                    icon.classList.add("animated", "infinite", "bounce");
+                }
+            })
+        }
 }
 
 //Sound and Animation functions
@@ -430,7 +436,7 @@ function checkKey(event) {
     checkLumosCode(event);
     checkPirateCode(event);
     if (keyData[event.key.toLowerCase()]) {
-        keyData[event.key].sound.play();
+        keyData[event.key.toLowerCase()].sound.play();
         animFunc.makeCircle();
     }
 }
