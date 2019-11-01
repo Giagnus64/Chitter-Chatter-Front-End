@@ -5,7 +5,6 @@ import { Howl, Howler } from 'howler';
 const loginFormDiv = document.querySelector(".user-login-form-div-css");
 const editFormDiv = document.querySelector(".user-edit-form-div-css");
 const editFormUsername = document.querySelector("#edit-form-username");
-const editFormIcon = document.querySelector("#edit-form-icon");
 const loginFormName = document.querySelector("#login-username-input")
 const loginForm = document.querySelector(".login-form-js");
 const editForm = document.querySelector("#edit-form-js");
@@ -340,24 +339,21 @@ function handleEdit(event){
 function fillEditForm(){
     const usernameColon = usernameDisplay.textContent;
     editFormUsername.value = usernameColon.substring(0, usernameColon.length - 1);
-    editFormIcon.value = currentUserImage.src;
 }
 
 function editUser(e){
     e.preventDefault();
     const newUsername = editFormUsername.value
     const currUser = usernameDisplay.dataset.currentUserId
-    const newIcon = editFormIcon.value
-    let imageUrl = (newIcon === "") ? defaultUrl : newIcon
      if(newUsername === ""){
         alert("Username cannot be blank!");
         return true;
      } else{
-         sendEditToDb(currUser, newUsername, newIcon);
+         sendEditToDb(currUser, newUsername);
     }
 }
 
-function sendEditToDb(currUser, newUsername, newIcon){
+function sendEditToDb(currUser, newUsername){
     fetch(usersUrl + `/${currUser}`, {
         method: "PATCH",
         headers: {
@@ -366,7 +362,6 @@ function sendEditToDb(currUser, newUsername, newIcon){
         },
         body: JSON.stringify({
             username: newUsername,
-            icon_url: newIcon
         })
     })
         .then(res => res.json())
