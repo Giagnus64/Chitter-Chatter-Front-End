@@ -252,3 +252,15 @@ canvas{
     transform-origin: bottom center;
 }
 
+.footer{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+}
+.footer p{
+    margin:10px
+}
+.footer i{
+    margin-left:10px;
+}
