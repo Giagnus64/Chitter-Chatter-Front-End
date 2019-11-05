@@ -10,7 +10,7 @@ const loginForm = document.querySelector(".login-form-js");
 const editForm = document.querySelector("#edit-form-js");
 
 //User Button Vars
-const editUserBtn = document.querySelector(".edit-user-button");
+//const editUserBtn = document.querySelector(".edit-user-button");
 const deleteUserBtn = document.querySelector(".delete-user-button");
 const logoutBtn = document.querySelector(".logout-button");
 const silenceBtn = document.querySelector("#stop-all");
@@ -52,7 +52,7 @@ loginForm.addEventListener('submit', handleLogin);
 registerForm.addEventListener('submit', handleRegister);
 userContainer.addEventListener("click", createChat);
 messageForm.addEventListener('submit', handleMessage);
-editUserBtn.addEventListener('click', handleEdit);
+//editUserBtn.addEventListener('click', handleEdit);
 editForm.addEventListener('submit', editUser);
 deleteUserBtn.addEventListener('click', deleteUser);
 logoutBtn.addEventListener('click', logoutUser);
@@ -101,7 +101,7 @@ function createChat(event){
         addIconToChat(event);
         getMessages(chattingUser);
     }
-    if (event.target.classList.contains("animated")){
+    if (event.target.classList.contains("animated") || event.target.parentElement.classList.contains("animated")){
       document.querySelector("#user-container-js").querySelector(`[data-user-id='${event.target.dataset.userId}']`).classList.remove("animated", "infinite", "bounce")
     }
 }
@@ -375,7 +375,7 @@ function sendEditToDb(currUser, newUsername){
 
 function deleteUser(){
     const currUser = usernameDisplay.dataset.currentUserId
-    console.log(currUser);
+    //console.log(currUser);
     if(currUser && currUser !== "none"){
         fetch(usersUrl + `/${currUser}`, {
             method: "DELETE"   
@@ -417,6 +417,7 @@ function countMessagesAndAlert() {
                 let updatedCount = sorted.length
                 let pageCount = document.querySelector(".chat-messages-css").children.length
                 if (updatedCount > pageCount) {
+                    //console.log("triggered")
                     let icon = document.querySelector("#user-container-js").querySelector(`[data-user-id='${chattingUserId}']`)
                     icon.classList.add("animated", "infinite", "bounce");
                 }
@@ -659,7 +660,7 @@ function silenceSounds(e){
 document.addEventListener("DOMContentLoaded", function() {
     setTimeout(function () {
         animFunc = window.myLib
-    }, 500)
+    }, 1000)
 });
 
 displayForm(loginFormDiv);
