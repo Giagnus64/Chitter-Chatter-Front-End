@@ -390,6 +390,7 @@ function deleteUser(){
 }
 
 function logoutUser(){
+    if (currentInterval) { clearInterval(currentInterval) }
     usernameDisplay.dataset.currentUserId = "none";
     currentUserImage.src = defaultUrl
     usernameDisplay.innerText = "USER" + ":"

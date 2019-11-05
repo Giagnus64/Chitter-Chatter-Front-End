@@ -264,3 +264,10 @@ canvas{
 .footer i{
     margin-left:10px;
 }
+
+a {
+    color: black;
+}
+a:visited{
+    color: black;
+}
